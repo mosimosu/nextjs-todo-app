@@ -29,9 +29,7 @@ export default function AddTodoForm({ onAdd }: AddTodoFormProps) {
           placeholder="輸入新的待辦事項..."
           className="flex-1"
         />
-        <Button type="submit">
-          新增
-        </Button>
+        <Button type="submit">新增</Button>
       </div>
     </form>
   );

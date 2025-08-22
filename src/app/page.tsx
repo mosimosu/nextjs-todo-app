@@ -182,9 +182,9 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             <AddTodoForm onAdd={addTodo} />
-            <TodoList 
-              todos={todos} 
-              onToggle={toggleTodo} 
+            <TodoList
+              todos={todos}
+              onToggle={toggleTodo}
               onDelete={deleteTodo}
               onEdit={editTodo}
             />

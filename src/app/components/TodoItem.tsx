@@ -42,19 +42,18 @@ export default function TodoItem({
     <Card className="mb-2">
       <CardContent className="flex items-center justify-between p-4">
         <div className="flex items-center space-x-3 flex-1">
-          <Checkbox
-            checked={completed}
-            onCheckedChange={() => onToggle(id)}
-          />
+          <Checkbox checked={completed} onCheckedChange={() => onToggle(id)} />
           <span
             className={`${
-              completed ? "line-through text-muted-foreground" : "text-foreground"
+              completed
+                ? "line-through text-muted-foreground"
+                : "text-foreground"
             } text-sm flex-1`}
           >
             {text}
           </span>
         </div>
-        
+
         <div className="flex space-x-2">
           {onEdit && (
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -80,20 +79,14 @@ export default function TodoItem({
                     >
                       取消
                     </Button>
-                    <Button onClick={handleEdit}>
-                      確認
-                    </Button>
+                    <Button onClick={handleEdit}>確認</Button>
                   </div>
                 </div>
               </DialogContent>
             </Dialog>
           )}
-          
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={() => onDelete(id)}
-          >
+
+          <Button variant="destructive" size="sm" onClick={() => onDelete(id)}>
             刪除
           </Button>
         </div>

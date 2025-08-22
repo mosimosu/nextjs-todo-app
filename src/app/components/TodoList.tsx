@@ -13,7 +13,12 @@ interface TodoListProps {
   onEdit?: (id: string, newText: string) => void;
 }
 
-export default function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
+export default function TodoList({
+  todos,
+  onToggle,
+  onDelete,
+  onEdit,
+}: TodoListProps) {
   if (todos.length === 0) {
     return (
       <div className="text-center py-8 text-muted-foreground">
