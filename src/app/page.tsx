@@ -63,9 +63,7 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            Todo List 應用
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Todo List</h1>
           <p className="text-gray-600">
             使用 Next.js 和 TypeScript 打造的待辦事項管理工具
           </p>

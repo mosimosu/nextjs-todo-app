@@ -17,7 +17,7 @@ export default function TodoList({ todos, onToggle, onDelete }: TodoListProps) {
     return (
       <div className="text-center py-8 text-gray-500">
         <p>目前沒有任何待辦事項</p>
-        <p className="text-sm mt-1">新增一個項目開始使用吧！</p>
+        <p className="text-sm mt-1">新增一個待辦事項</p>
       </div>
     );
   }
