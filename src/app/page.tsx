@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import AddTodoForm from "./components/AddTodoForm";
 import TodoList from "./components/TodoList";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Todo {
   id: string;
@@ -102,6 +103,32 @@ export default function Home() {
     }
   };
 
+  const editTodo = async (id: string, newText: string) => {
+    try {
+      const response = await fetch(`/api/todos/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: newText }),
+      });
+
+      if (response.ok) {
+        const updatedTodo = await response.json();
+        const todoWithDates = {
+          ...updatedTodo,
+          createdAt: new Date(updatedTodo.createdAt),
+          updatedAt: new Date(updatedTodo.updatedAt),
+        };
+        setTodos(todos.map((todo) => (todo.id === id ? todoWithDates : todo)));
+      } else {
+        console.error("Failed to update todo");
+      }
+    } catch (error) {
+      console.error("Error updating todo:", error);
+    }
+  };
+
   const deleteTodo = async (id: string) => {
     try {
       const response = await fetch(`/api/todos/${id}`, {
@@ -123,11 +150,11 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="min-h-screen bg-background py-8 px-4">
         <div className="max-w-2xl mx-auto">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">載入中...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">載入中...</p>
           </div>
         </div>
       </div>
@@ -135,24 +162,34 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+    <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Todo List</h1>
-          <p className="text-gray-600">
+          <h1 className="text-4xl font-bold text-foreground mb-2">Todo List</h1>
+          <p className="text-muted-foreground">
             使用 Next.js、TypeScript 和 PostgreSQL 打造的待辦事項管理工具
           </p>
           {totalCount > 0 && (
-            <div className="mt-4 text-sm text-gray-500">
+            <div className="mt-4 text-sm text-muted-foreground">
               已完成 {completedCount} / {totalCount} 項任務
             </div>
           )}
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <AddTodoForm onAdd={addTodo} />
-          <TodoList todos={todos} onToggle={toggleTodo} onDelete={deleteTodo} />
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>我的待辦事項</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <AddTodoForm onAdd={addTodo} />
+            <TodoList 
+              todos={todos} 
+              onToggle={toggleTodo} 
+              onDelete={deleteTodo}
+              onEdit={editTodo}
+            />
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

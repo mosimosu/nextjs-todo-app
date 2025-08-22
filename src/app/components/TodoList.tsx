@@ -10,14 +10,15 @@ interface TodoListProps {
   todos: Todo[];
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
+  onEdit?: (id: string, newText: string) => void;
 }
 
-export default function TodoList({ todos, onToggle, onDelete }: TodoListProps) {
+export default function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
   if (todos.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500">
+      <div className="text-center py-8 text-muted-foreground">
         <p>目前沒有任何待辦事項</p>
-        <p className="text-sm mt-1">新增一個待辦事項</p>
+        <p className="text-sm mt-1">新增一個項目開始使用吧！</p>
       </div>
     );
   }
@@ -32,6 +33,7 @@ export default function TodoList({ todos, onToggle, onDelete }: TodoListProps) {
           completed={todo.completed}
           onToggle={onToggle}
           onDelete={onDelete}
+          onEdit={onEdit}
         />
       ))}
     </div>
