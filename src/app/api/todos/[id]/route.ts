@@ -4,10 +4,10 @@ import { prisma } from "@/lib/prisma";
 // PUT /api/todos/[id] - 更新 todo
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await context.params;
     const body = await request.json();
     const { text, completed } = body;
 
@@ -40,10 +40,10 @@ export async function PUT(
 // DELETE /api/todos/[id] - 刪除 todo
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await context.params;
 
     await prisma.todo.delete({
       where: { id },
